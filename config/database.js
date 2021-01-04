@@ -1,6 +1,6 @@
 export default {
     username: 'root',
-    password: 'mn484874',
+    password: 'hanparksmile!',
     schema: 'test_db',
     host: 'localhost',
     dialect: 'mysql',

@@ -39,6 +39,8 @@ fs.readdirSync(__dirname)
 	});
 
 Object.keys(models).forEach(modelName => {
+	console.log('Associate test');
+	console.log(modelName);
 	if ('associate' in models[modelName]) {
 		models[modelName].associate(models);
 	}
@@ -50,7 +52,7 @@ sequelize
 		console.log('Schema has synchronized');
 	})
 	.catch(err => {
-		console.log(`Schema synchronizing has failed\nError is ${err}`);
+		console.log(`Schema synchronizing has failed\nError :: ${err}`);
 	});
 
 models.sequelize = sequelize;
