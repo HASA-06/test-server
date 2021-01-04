@@ -36,7 +36,7 @@ export default (sequelize, DataTypes) => {
   );
 
   User.associate = models => {
-    console.log('This form for associate');
+    console.log(`::: User table :::\nAssociate list\nNone\n`);
   }
 
   return User;

@@ -35,16 +35,12 @@ fs.readdirSync(__dirname)
 			const subModelInit = subModel.default(sequelize, Sequelize.DataTypes);
 			
 			models[subModelInit.name] = subModelInit;
+
+			if('associate' in models[subModelInit.name]) {
+				models[subModelInit.name].associate(models);
+			}
 		});
 	});
-
-Object.keys(models).forEach(modelName => {
-	console.log('Associate test');
-	console.log(modelName);
-	if ('associate' in models[modelName]) {
-		models[modelName].associate(models);
-	}
-});
 
 sequelize
 	.sync()
