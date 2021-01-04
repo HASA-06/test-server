@@ -1,10 +1,10 @@
 import baseModel from '../../../models/index.js';
+
 import * as redisLib from '../../../../lib/redis.js';
 import * as sensLib from '../../../../lib/sens.js';
-import sensConfig from '../../../../config/sens.js';
+import * as tokenLib from '../../../../lib/token.js';
 
 import crypto from 'crypto';
-import axios from 'axios';
 
 const type = 'development';
 
@@ -101,9 +101,31 @@ const signIn = async ctx => {
         const savedPassword = crypto.scryptSync(password, data.dataValues.salt, 64).toString('hex');
 
         if(savedPassword === data.dataValues.password) {
+            const accessToken = await tokenLib.createAccessToken({
+                sellerNumber: data.dataValues.number,
+            });
+
+            const refreshToken = await tokenLib.createRefreshToken({
+                sellerNumber: data.dataValues.number,
+            });
+
+            if(accessToken.status === 'error' || refreshToken.status === 'error') {
+                ctx.status = 500;
+                ctx.body = {
+                    type: 'JWT error',
+                    message: accessToken.status === 'error' ? accessToken.data : refreshToken.data,
+                };
+
+                return;
+            }
+            
             ctx.status = 200;
             ctx.body = {
                 message: 'Success',
+                data: {
+                    accessToken: accessToken.data,
+                    refreshToken: refreshToken.data,
+                },
             };
 
             return;
