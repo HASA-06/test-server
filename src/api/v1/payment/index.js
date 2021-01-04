@@ -4,6 +4,7 @@ import * as paymentCtrl from './payment.ctrl.js';
 
 const payment = new KoaRouter();
 
-payment.post('/test', paymentCtrl.test);
+payment.post('/token', paymentCtrl.token);
+payment.post('/find-all-by-status', paymentCtrl.findAllByStatus);
 
 export default payment;

@@ -1,10 +1,14 @@
 import * as iamportLib from '../../../../lib/iamport.js';
 
-const test = async ctx => {
+const token = async ctx => {
     try {
-        const token = await iamportLib.getToken();
+        const iamportResponse = await iamportLib.getToken();
 
-        console.log(token);
+        ctx.status = 200;
+        ctx.body = {
+            message: 'Success',
+            data: iamportResponse.data['access_token'],
+        }
     } catch (error) {
         ctx.status = 500;
         ctx.body = {
@@ -16,6 +20,33 @@ const test = async ctx => {
     }
 };
 
+const findAllByStatus = async ctx => {
+    const {
+        statusCode
+    } = ctx.request.body;
+
+    try {
+        const iamportRespose = await iamportLib.getAllByStatus(statusCode);
+
+        ctx.status = 200;
+        ctx.body = {
+            message: 'Success',
+            data: iamportRespose.data.list,
+        };
+
+        return;
+    } catch (error) {
+        ctx.status = 500;
+        ctx.body = {
+            type: 'Iamport error',
+            message: error.message,
+        };
+
+        return;
+    }
+};
+
 export {
-    test,
-}
+    token,
+    findAllByStatus,
+};
