@@ -1,10 +1,12 @@
 import KoaRouter from 'koa-router';
 
-import { signUp, signIn } from './authCtrl.js';
+import * as authCtrl from './authCtrl.js';
 
 const auth = new KoaRouter();
 
-auth.post('/sign-up', signUp);
-auth.post('/sign-in', signIn);
+auth.post('/sign-up', authCtrl.signUp);
+auth.post('/sign-in', authCtrl.signIn);
+auth.post('/sms-send', authCtrl.smsSend);
+auth.post('/sms-check', authCtrl.smsCheck);
 
 export default auth;

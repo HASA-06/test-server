@@ -15,6 +15,8 @@
   "author": "LEE SANHA",
   "license": "ISC",
   "dependencies": {
+    "async-redis": "^1.1.7",
+    "axios": "^0.21.1",
     "fs": "0.0.1-security",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",

@@ -28,13 +28,15 @@ const __dirname = path.resolve().concat('\\src\\models');
 
 fs.readdirSync(__dirname)
 	.filter(file => file.indexOf('.') !== 0 && file !== 'index.js')
-	.forEach(file => {
+	.forEach((file, index) => {
 		const subModel = import(`./${file}`);
 
 		subModel.then((subModel) => {
 			const subModelInit = subModel.default(sequelize, Sequelize.DataTypes);
 			
 			models[subModelInit.name] = subModelInit;
+
+			if(index === 0) console.log('::: Sub model associate set :::');
 
 			if('associate' in models[subModelInit.name]) {
 				models[subModelInit.name].associate(models);

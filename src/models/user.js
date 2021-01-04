@@ -36,7 +36,7 @@ export default (sequelize, DataTypes) => {
   );
 
   User.associate = models => {
-    console.log(`::: User table :::\nAssociate list\nNone\n`);
+    console.log(`User\nAssociate list\nNone\n`);
   }
 
   return User;
