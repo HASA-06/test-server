@@ -1,6 +1,6 @@
 import KoaRouter from 'koa-router';
 
-import * as tokenCtrl from './tokenCtrl.js';
+import * as tokenCtrl from './token.ctrl.js';
 
 const token = new KoaRouter();
 

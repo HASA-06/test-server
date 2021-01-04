@@ -1,6 +1,6 @@
 import KoaRouter from 'koa-router';
 
-import * as authCtrl from './authCtrl.js';
+import * as authCtrl from './auth.ctrl.js';
 
 const auth = new KoaRouter();
 
