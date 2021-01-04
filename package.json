@@ -18,7 +18,6 @@
     "async-redis": "^1.1.7",
     "axios": "^0.21.1",
     "fs": "0.0.1-security",
-    "iamport": "^0.3.4",
     "iamporter": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
