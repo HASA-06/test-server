@@ -1,5 +1,6 @@
 import baseModel from '../../../models/index.js';
 import * as redisLib from '../../../../lib/redis.js';
+import * as sensLib from '../../../../lib/sens.js';
 import sensConfig from '../../../../config/sens.js';
 
 import crypto from 'crypto';
@@ -144,53 +145,23 @@ const smsSend = async ctx => {
             return;
         }
 
-        const authenticationNumber = await generateAuthenticationNumber();
-        const serviceId = sensConfig.serviceId;
-        const url = `/sms/v2/services/${serviceId}/messages`;
-        const timestamp = new Date().getTime().toString();
-        const signingKey = await generateSigningKey('POST', url, timestamp, sensConfig.accessKey, sensConfig.secretKey);
+        const smsSendResult = await sensLib.smsSend(uuid, phoneNumber);
 
-        if(signingKey.type === 'error') {
+        if(smsSendResult.status !== 'success') {
             ctx.status = 500;
             ctx.body = {
-                type: 'Server Error',
-                message: signingKey.data,
+                type: 'Sens error',
+                message: smsSendResult.data,
             };
 
             return;
         }
-        
-        const requestData = {
-            type: 'SMS',
-            contentType: 'COMM',
-            countryCode: '82',
-            from: sensConfig.companyNumber,
-            content: `안녕하세요 미쁘입니다.\n5분 이내에 인증번호 6자리 숫자 ${authenticationNumber} 를 입력해 주세요.`,
-            messages: [
-                {
-                    to: phoneNumber,
-                },
-            ],
-        };
-
-        await axios.post(
-            `https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`,
-            requestData,
-            {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'x-ncp-apigw-timestamp': timestamp,
-                    'x-ncp-iam-access-key': sensConfig.accessKey,
-                    'x-ncp-apigw-signature-v2': signingKey.data,
-                },
-            },
-        );
 
         await redisLib.saveAuthenticationNumberSendLog(
             uuid,
             type,
             phoneNumber,
-            authenticationNumber,
+            smsSendResult.data.authenticationNumber,
         );
             
         ctx.status = 200;
@@ -204,6 +175,7 @@ const smsSend = async ctx => {
         ctx.body = {
             type: 'Server error',
             message: error.message,
+            other: error,
         };
 
         return;
