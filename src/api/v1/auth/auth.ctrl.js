@@ -1,12 +1,10 @@
-import baseModel from '../../../models/index.js';
+import baseModel from '../../../../models/index.js';
 
 import * as redisLib from '../../../../lib/redis.js';
 import * as sensLib from '../../../../lib/sens.js';
 import * as tokenLib from '../../../../lib/token.js';
 
 import crypto from 'crypto';
-
-const type = 'development';
 
 const signUp = async ctx => {
     const {
@@ -155,7 +153,7 @@ const smsSend = async ctx => {
     } = ctx.request.body;
 
     try {
-        const log = await redisLib.getLog(uuid, type);
+        const log = await redisLib.getLog(uuid, process.env.NODE_ENV);
         
         if(log) {
             ctx.status = 400;
@@ -181,7 +179,7 @@ const smsSend = async ctx => {
 
         await redisLib.saveAuthenticationNumberSendLog(
             uuid,
-            type,
+            process.env.NODE_ENV,
             phoneNumber,
             smsSendResult.data.authenticationNumber,
         );
@@ -211,7 +209,7 @@ const smsCheck = async ctx => {
     } = ctx.request.body;
 
     try {
-        const log = await redisLib.getLog(uuid, type);
+        const log = await redisLib.getLog(uuid, process.env.NODE_ENV);
 
         if (!log) {
             ctx.status = 404;

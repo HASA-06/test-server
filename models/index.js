@@ -1,18 +1,18 @@
 import fs from 'fs';
-import path from 'path';
 import Sequelize from 'sequelize';
 
-import databaseConfig from '../../config/database.js';
+import databaseConfig from '../config/database.js';
+import environment from '../utils/envoriment.js';
 
-console.log('::: Schema set :::\nSub models will be injected to base model');
+environment();
 
 const sequelize = new Sequelize(
-	databaseConfig.schema,
-	databaseConfig.username,
-	databaseConfig.password,
+	process.env.DATABASE__SCHEMA,
+	process.env.DATABASE__USER_NAME,
+	process.env.DATABASE__USER_PASSWORD,
 	{
-		host: databaseConfig.host,
-		dialect: databaseConfig.dialect,
+		host: process.env.DATABASE__HOST,
+		dialect: process.env.DATABASE__DIALECT,
 		logging: false,
 		pool: {
 			max: 5,
@@ -24,7 +24,7 @@ const sequelize = new Sequelize(
 );
 
 const models = {};
-const __dirname = path.resolve().concat('\\src\\models');
+const __dirname = process.env.GLOBAL__DIR_NAME.concat('\\models');
 
 fs.readdirSync(__dirname)
 	.filter(file => file.indexOf('.') !== 0 && file !== 'index.js')

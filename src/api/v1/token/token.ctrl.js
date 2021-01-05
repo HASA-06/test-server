@@ -10,17 +10,6 @@ const refresh = async ctx => {
         const decodedRefreshToken = await tokenLib.decodeToken(refreshToken);
         const remain = decodedRefreshToken.exp * 1000 - new Date().getTime();
 
-        // if(decodedRefreshToken.status === 'error') {
-        //     ctx.status = 500;
-        //     ctx.body = {
-        //         type: 'JWT error',
-        //         message: decodedRefreshToken.data,
-        //     };
-
-        //     return;
-        // }
-
-
         if(decodedRefreshToken.data.sub !== 'refreshToken') {
             ctx.status = 403;
             ctx.body = {

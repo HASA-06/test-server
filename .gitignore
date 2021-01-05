@@ -1,3 +1,6 @@
-# Dependency directories
+# Directory
 node_modules/
 config/
+
+# File extension
+.env
