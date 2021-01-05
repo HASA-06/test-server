@@ -1,6 +1,7 @@
 # Directory
 node_modules/
 config/
+env/
 
 # File extension
-.env
+*.env
