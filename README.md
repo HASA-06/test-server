@@ -29,5 +29,5 @@ npm run dev
 
 ## Production Version<br/>
 ```
-CMD :: npm run start
+npm run start
 ```
