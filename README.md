@@ -1,18 +1,33 @@
 # test_server
+Server modules
 ```
 - koa
+
 - koa-router
+
 - sequelize
+
+- ssens
+
 - redis
+
+- sharp
+
+- ffmpeg
+
+- aws-sdk
+
+- mysql2
+
 ```
 <br/>
 
-Development Version<br/>
+## Development Version<br/>
 ```
 npm run dev
 ```
 
-Production Version<br/>
+## Production Version<br/>
 ```
 CMD :: npm run start
 ```
