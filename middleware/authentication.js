@@ -2,7 +2,7 @@ import * as tokenLib from '../lib/token.js';
 
 const authenticated = async (ctx, next) => {
     let accessToken = ctx.header.authorization;
-
+    
     if(!accessToken) {
         ctx.status = 400;
         ctx.body = {

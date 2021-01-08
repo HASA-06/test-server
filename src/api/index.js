@@ -7,7 +7,10 @@ const api = new KoaRouter();
 api.use('/v1', v1.routes());
 api.get('/check', (ctx, next) => {
   ctx.status = 200;
-  ctx.body = 'Routing has no problem';
+  ctx.body = {
+    message: 'Success',
+    data: undefined,
+  };
 
   return;
 });
