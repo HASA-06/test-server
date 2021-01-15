@@ -1,7 +1,6 @@
 import fs from 'fs';
 import Sequelize from 'sequelize';
 
-import databaseConfig from '../config/database.js';
 import environment from '../utils/envoriment.js';
 
 environment();

@@ -36,9 +36,12 @@
     "path": "^0.12.7",
     "sequelize": "^6.3.5",
     "sharp": "^0.27.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "vue-ts-iamport": "0.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HASA-06/test_server.git"
